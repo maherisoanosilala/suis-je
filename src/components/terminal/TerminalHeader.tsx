@@ -9,7 +9,7 @@ export function TerminalHeader({ command, className }: TerminalHeaderProps) {
   return (
     <div
       className={clsx(
-        'font-mono text-sm md:text-base select-none mb-6',
+        'font-mono text-xs md:text-sm select-none mb-6',
         className
       )}
     >

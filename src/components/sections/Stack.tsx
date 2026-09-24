@@ -9,7 +9,7 @@ export function Stack() {
   return (
     <CommandBlock command="cat ~/stack.md" id="stack">
       <motion.div
-        className="grid sm:grid-cols-2 gap-5"
+        className="grid sm:grid-cols-2 gap-5 font-mono"
         variants={stagger}
         initial="hidden"
         whileInView="visible"
@@ -29,7 +29,7 @@ export function Stack() {
               <span>{g.label}</span>
             </h4>
 
-            <ul className="space-y-1.5 text-sm text-fg/80">
+            <ul className="space-y-1.5 text-xs text-fg/80">
               {g.items.map((i) => (
                 <li key={i} className="flex gap-2">
                   <span className="text-muted/60">·</span>

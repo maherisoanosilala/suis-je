@@ -15,20 +15,20 @@ export function About() {
   return (
     <CommandBlock command="cat ~/about.md" id="about">
       <motion.div
-        className="space-y-5 text-fg/80 leading-relaxed"
+        className="space-y-5 text-fg/80 leading-relaxed font-mono"
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
       >
-        <motion.p variants={fadeUp}>
+        <motion.p variants={fadeUp} className='text-sm'>
           Freelance fullstack <span className="text-accent">Next.js</span>, basé
           à Madagascar. Je conçois et livre des produits web de bout en bout —
           du cadrage au déploiement, en passant par la formation des
           utilisateurs.
         </motion.p>
 
-        <motion.p variants={fadeUp}>
+        <motion.p variants={fadeUp} className='text-sm'>
           Mon parcours m'a fait toucher à des contextes très différents :{' '}
           <span className="text-fg">administration publique</span>,{' '}
           <span className="text-fg">industrie</span>,{' '}
@@ -37,11 +37,11 @@ export function About() {
           l'adaptabilité, l'autonomie, et le sens des contraintes réelles.
         </motion.p>
 
-        <motion.p variants={fadeUp} className="pt-2">
+        <motion.p variants={fadeUp} className="pt-2 font-mono">
           Ce qui me distingue :
         </motion.p>
 
-        <motion.ul variants={stagger} className="space-y-2 pl-4">
+        <motion.ul variants={stagger} className="space-y-2 pl-4 text-xs">
           {HIGHLIGHTS.map((item) => (
             <motion.li
               key={item}

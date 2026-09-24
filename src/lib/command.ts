@@ -38,5 +38,5 @@ Tape "missions" pour voir mes études de cas.`
 
 export const CONTACT_TEXT = `  email     nosilala13@gmail.com
   whatsapp  https://wa.me/261380671010
-  github    https://github.com/maherisoanosilala      # TODO
-  linkedin  https://linkedin.com/in/ton-handle # TODO`
+  github    https://github.com/maherisoanosilala      
+  linkedin  https://linkedin.com/in/maherisoa02`

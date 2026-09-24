@@ -12,20 +12,21 @@ export function Missions() {
   return (
     <CommandBlock command="ls ~/missions" id="missions">
       <motion.div
-        className="space-y-10"
+        className="space-y-10 font-mono"
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
+        
       >
         {featured.map((m) => (
           <motion.article
             key={m.id}
             variants={fadeUp}
-            className="border border-border rounded-lg p-6 bg-surface/50 hover:border-accent/40 transition-colors"
+            className="border font-mono border-border rounded-lg p-6 bg-surface/50 hover:border-accent/40 transition-colors"
           >
             <header className="mb-4">
-              <h3 className="text-lg font-medium text-fg">{m.title}</h3>
+              <h3 className="text-base font-medium text-fg">{m.title}</h3>
               <p className="text-sm text-muted mt-1">{m.context}</p>
               <p className="text-xs font-mono text-accent mt-2">{m.role}</p>
             </header>
@@ -67,14 +68,14 @@ export function Missions() {
             <span className="text-accent">#</span> autres projets
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-6 font-mono">
             {others.map((m) => (
               <motion.div
                 key={m.id}
                 variants={fadeUp}
                 className="border-l-2 border-border pl-4 hover:border-accent/60 transition-colors"
               >
-                <h4 className="text-fg font-medium">{m.title}</h4>
+                <h4 className="text-fg font-medium text-sm">{m.title}</h4>
                 <p className="text-xs text-muted mt-1">{m.context}</p>
                 <p className="text-xs text-fg/60 mt-1 italic">{m.result}</p>
                 <div className="flex flex-wrap gap-1.5 mt-2">

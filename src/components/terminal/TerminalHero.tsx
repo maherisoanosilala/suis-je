@@ -199,7 +199,7 @@ export function TerminalHero({ onExit }: TerminalHeroProps) {
           {/* Body */}
           <div
             ref={bodyRef}
-            className="font-mono text-sm md:text-[15px] leading-relaxed p-5 h-[420px] overflow-y-auto"
+            className="font-mono text-xs md:text-sm leading-relaxed p-5 h-105 overflow-y-auto"
           >
             {lines
               .filter((line): line is Line => Boolean(line))

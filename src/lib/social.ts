@@ -25,20 +25,20 @@ export const SOCIALS: Social[] = [
   },
   {
     label: 'github',
-    value: 'maherisoanosilala', // TODO: remplace
-    href: 'https://github.com/maherisoanosilala', // TODO: remplace
+    value: 'maherisoanosilala', 
+    href: 'https://github.com/maherisoanosilala', 
     icon: FaGithub,
   },
   {
     label: 'linkedin',
-    value: 'in/maherisoanosilala', // TODO: remplace
-    href: 'https://linkedin.com/in/maherisoanosilala', // TODO: remplace
+    value: 'in/maherisoanosilala', 
+    href: 'https://linkedin.com/in/maherisoanosilala', 
     icon:FaLinkedin,
   },
   {
     label: 'twitter',
-    value: '@maherisoa02', // TODO: remplace
-    href: 'https://twitter.com/maherisoa02', // TODO: remplace
+    value: '@maherisoa02', 
+    href: 'https://twitter.com/maherisoa02', 
     icon: FaXTwitter,
   },
 ]
