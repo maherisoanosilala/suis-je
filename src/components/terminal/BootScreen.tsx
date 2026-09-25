@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { VscTerminalBash } from 'react-icons/vsc'
+import { HiOutlineLockClosed } from 'react-icons/hi'
 
 interface BootScreenProps {
   onStart: () => void
@@ -67,20 +69,26 @@ export function BootScreen({ onStart }: BootScreenProps) {
       />
 
       <div className="w-full max-w-xl relative">
-        {/* Fenêtre terminal mini */}
         <div className="rounded-xl border border-border bg-surface terminal-glow overflow-hidden">
-          {/* Title bar */}
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-[#0d1117]">
-            <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-            <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
-            <span className="w-3 h-3 rounded-full bg-[#28c840]" />
-            <span className="ml-3 font-mono text-xs text-muted">
-              arthur@portfolio — zsh
-            </span>
+          {/* Header "portail" — pas de faux boutons, un vrai label */}
+          <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-bg">
+            <div className="flex items-center gap-2 text-accent">
+              <HiOutlineLockClosed size={13} />
+              <span className="font-mono text-[11px] tracking-wider uppercase text-accent/80">
+                secure access
+              </span>
+            </div>
+
+            <div className="ml-auto flex items-center gap-2">
+              <VscTerminalBash size={13} className="text-muted/60" />
+              <span className="font-mono text-[11px] text-muted/70">
+                arthur@portfolio
+              </span>
+            </div>
           </div>
 
           {/* Boot lines */}
-          <div className="font-mono text-sm p-6 h-[180px] flex flex-col justify-between">
+          <div className="font-mono text-sm p-6 h-50 flex flex-col justify-between">
             <div className="space-y-1">
               {visibleLines.map((line, i) => (
                 <div key={i} className="text-fg/80">

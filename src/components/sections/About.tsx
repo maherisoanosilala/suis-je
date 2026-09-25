@@ -37,7 +37,7 @@ export function About() {
           l'adaptabilité, l'autonomie, et le sens des contraintes réelles.
         </motion.p>
 
-        <motion.p variants={fadeUp} className="pt-2 font-mono">
+        <motion.p variants={fadeUp} className="pt-2 font-mono text-sm">
           Ce qui me distingue :
         </motion.p>
 

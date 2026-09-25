@@ -8,6 +8,7 @@ import {
   CommandKey,
 } from '@/lib/command'
 import { TerminalCursor } from './TerminalCursor'
+import { TerminalTitleBar } from './TerminalTitleBar'
 
 type Line = { type: 'input' | 'output'; content: string }
 
@@ -44,14 +45,15 @@ export function TerminalHero({ onExit }: TerminalHeroProps) {
   const [focused, setFocused] = useState(false)
   const [history, setHistory] = useState<string[]>([])
   const [historyIdx, setHistoryIdx] = useState<number | null>(null)
+  const [minimized, setMinimized] = useState(false)
+  const [maximized, setMaximized] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const bodyRef = useRef<HTMLDivElement>(null)
 
-  // Intro auto — blindée anti-StrictMode
+  // Intro auto
   useEffect(() => {
     let cancelled = false
     let i = 0
-
     const timer = setInterval(() => {
       if (cancelled) return
       if (i >= INTRO.length) {
@@ -80,8 +82,8 @@ export function TerminalHero({ onExit }: TerminalHeroProps) {
 
   // Focus auto
   useEffect(() => {
-    if (introDone) inputRef.current?.focus()
-  }, [introDone])
+    if (introDone && !minimized) inputRef.current?.focus()
+  }, [introDone, minimized])
 
   function runCommand(raw: string) {
     const cmd = raw.trim().toLowerCase() as CommandKey
@@ -90,13 +92,11 @@ export function TerminalHero({ onExit }: TerminalHeroProps) {
     setHistory((h) => [...h, raw])
     setHistoryIdx(null)
 
-    // clear : efface tout, pas d'historique
     if (cmd === 'clear') {
       setLines([])
       return
     }
 
-    // exit : affiche logout puis retourne au boot screen
     if (cmd === 'exit') {
       setLines((prev) => [
         ...prev,
@@ -170,36 +170,39 @@ export function TerminalHero({ onExit }: TerminalHeroProps) {
     }
   }
 
+  // Hauteurs dynamiques selon minimized/maximized
+  const bodyHeight = minimized ? 'h-[60px]' : maximized ? 'h-[70vh]' : 'h-[420px]'
+  const maxWidth = maximized ? 'max-w-6xl' : 'max-w-3xl'
+
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 py-24 relative">
-      {/* Halo doux derrière le terminal */}
+    <section className="min-h-screen flex items-center justify-center px-6 py-24 relative font-mono">
+      {/* Halo */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none opacity-40 blur-3xl"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 rounded-full pointer-events-none opacity-40 blur-3xl"
         style={{
           background:
             'radial-gradient(circle, rgba(126,231,135,0.08) 0%, transparent 70%)',
         }}
       />
 
-      <div className="w-full max-w-3xl relative">
+      <div className={`w-full ${maxWidth} relative transition-all duration-500`}>
         <div
           className="rounded-xl border border-border bg-surface terminal-glow overflow-hidden"
-          onClick={() => inputRef.current?.focus()}
+          onClick={() => !minimized && inputRef.current?.focus()}
         >
-          {/* Title bar */}
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-[#0d1117]">
-            <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-            <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
-            <span className="w-3 h-3 rounded-full bg-[#28c840]" />
-            <span className="ml-3 font-mono text-xs text-muted">
-              {PROMPT_USER} — zsh
-            </span>
-          </div>
+          <TerminalTitleBar
+            user={PROMPT_USER}
+            onMinimize={() => setMinimized((v) => !v)}
+            onMaximize={() => setMaximized((v) => !v)}
+            onClose={() => runCommand('exit')}
+          />
 
           {/* Body */}
           <div
             ref={bodyRef}
-            className="font-mono text-xs md:text-sm leading-relaxed p-5 h-105 overflow-y-auto"
+            className={`font-mono text-sm md:text-sm leading-relaxed p-5 ${bodyHeight} overflow-y-auto transition-all duration-500 ${
+              minimized ? 'opacity-50' : 'opacity-100'
+            }`}
           >
             {lines
               .filter((line): line is Line => Boolean(line))
@@ -219,7 +222,7 @@ export function TerminalHero({ onExit }: TerminalHeroProps) {
                 </div>
               ))}
 
-            {introDone && (
+            {introDone && !minimized && (
               <div className="flex items-center">
                 <span className="text-muted">{PROMPT_USER}</span>
                 <span className="text-muted">:</span>
